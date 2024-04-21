@@ -5,7 +5,6 @@
 package core.person;
 
 import core.Juego.Juego;
-import core.Juego.Set;
 import java.util.ArrayList;
 
 /**
@@ -18,14 +17,17 @@ public class Jugador extends Persona{
     private ArrayList<Juego> juegos;
 
     public Jugador(String nombre, int sueldo) {
+        super(nombre);
         this.sueldo = sueldo;
-    }
+        this.juegos = new ArrayList<>();
+    } 
     
-
-    
-    
-    public void addJuego (Juego juego) {
-        this.juegos.add(juego);
-    }
+    public boolean addJuego (Juego juego) {
+        if (!this.juegos.contains(juego)) {
+            this.juegos.add(juego);
+            return true;
+        }
+        return false;
+    }    
     
 }

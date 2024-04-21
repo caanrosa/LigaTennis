@@ -5,7 +5,10 @@
 package core.league;
 
 import core.Juego.Juego;
+import core.Juego.Set;
+import core.person.Jugador;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -19,11 +22,46 @@ public class Campeonato {
         this.juegos = new ArrayList<>();
     }
     
-    public Juego addJuego (int index) {
-        return this.juegos.get(index);
+    public boolean addJuego(Juego juego) {
+        if (!this.juegos.contains(juego)) {
+            this.juegos.add(juego);
+            return true;
+        }
+        return false;
+    }
+    
+    public HashMap<Jugador, Integer> getFrecuenciaJugadoresSets() {
+        HashMap<Jugador, Integer> frecuenciaJugadoresSets = new HashMap<>();
+        for (Juego juego : this.juegos) {
+            if (!frecuenciaJugadoresSets.containsKey(juego.getJugador1())) {
+                frecuenciaJugadoresSets.put(juego.getJugador1(), 0);
+            }
+            if (!frecuenciaJugadoresSets.containsKey(juego.getJugador2())) {
+                frecuenciaJugadoresSets.put(juego.getJugador2(), 0);
+            }
+            for (Jugador jugador : juego.getSetWinners()) {
+                frecuenciaJugadoresSets.put(jugador, frecuenciaJugadoresSets.get(jugador) + 1);
+            }
+        }
+        return frecuenciaJugadoresSets;
     }
     
     public Juego getJuego(int index) {
         return this.juegos.get(index);
+    }
+    
+    public void showResumen() {
+        for (Juego juego : this.juegos) {
+            System.out.println("Jugador 1: " + juego.getJugador1().getNombre());
+            System.out.println("Jugador 2: " + juego.getJugador2().getNombre());
+            System.out.println("Juez: " + juego.getJuez().getNombre());
+            int index = 1;
+            for (Set set : juego.getSets()) {
+                System.out.println("Set " + index + ": " + set.getPuntosJugador1() + " - " + set.getPuntosJugador2());
+                index++;
+            }
+            System.out.println("Ganador: " + juego.getWinner().getNombre() + "\n");
+        }
+        System.out.println("El ganador del campeonato es: " + this.juegos.get(this.juegos.size() - 1).getWinner().getNombre() + "\n");
     }
 }

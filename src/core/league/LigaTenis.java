@@ -7,6 +7,7 @@ package core.league;
 import core.person.Juez;
 import core.person.Jugador;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -52,7 +53,10 @@ public class LigaTenis {
         return this.jugadores.get(index);
     }
     
-    public void calcSetsGanadosJugadoresCampeonato() {
-        
+    public void calcSetsGanadosJugadoresCampeonato(int index) {
+        HashMap<Jugador, Integer> frecuenciaJugadoresSets = this.campeonatos.get(index).getFrecuenciaJugadoresSets();
+        for (Jugador jugador : this.jugadores) {
+            System.out.println("El jugador: " + jugador.getNombre() + " gano " + frecuenciaJugadoresSets.get(jugador) + " sets en el campeonato");
+        }
     }
 }

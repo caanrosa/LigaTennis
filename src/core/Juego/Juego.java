@@ -51,6 +51,7 @@ public class Juego {
         this.jugador2.addJuego(this);
         this.juez.addJuego(this);
     }
+
     
     public Jugador getGanador() {
         Set lastSet = this.sets.get(this.sets.size()-1);
@@ -59,16 +60,56 @@ public class Juego {
         }
         return this.jugador2;
     }
+    
+    public void addSets(Set set1, Set set2) {
+        this.sets.add(set1);
+        this.sets.add(set2);
+    }
+
            
    public void addSets(Set set1, Set set2, Set set3) {
        this.sets.add(set1);
        this.sets.add(set2);
-       this.sets.add(set2);
+       this.sets.add(set3);
    }
 
     public void setJuegoSiguiente(Juego juegoSiguiente) {
         this.juegoSiguiente = juegoSiguiente;
     }
-   
+
+    public Jugador getJugador1() {
+        return jugador1;
+    }
+
+    public Jugador getJugador2() {
+        return jugador2;
+    }
+
+    public Juez getJuez() {
+        return juez;
+    }
+
+    public ArrayList<Set> getSets() {
+        return sets;
+    }
+   public ArrayList<Jugador> getSetWinners() {
+        ArrayList<Jugador> setWinners = new ArrayList<>();
+        for (Set set : this.sets) {
+            if (set.getPuntosJugador1() > set.getPuntosJugador2()) {
+                setWinners.add(this.jugador1);
+            } else {
+                setWinners.add(this.jugador2);
+            }
+        }
+        return setWinners;
+    }
+    
+    public Jugador getWinner() {
+        Set lastSet = this.sets.get(this.sets.size() - 1);
+        if (lastSet.getPuntosJugador1() > lastSet.getPuntosJugador2()) {
+            return this.jugador1;
+        }
+        return this.jugador2;
+    }   
    
 }

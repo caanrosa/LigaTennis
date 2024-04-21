@@ -23,10 +23,14 @@ public class Juez extends Persona {
         this.juegos = new ArrayList<>();
     }
     
-    public void addJuego (Juego juego) {
-        this.juegos.add(juego);
+    public boolean addJuego (Juego juego) {
+         if (!this.juegos.contains(juego)) {
+            this.juegos.add(juego);
+            return true;
+        }
+        return false;
     }
-    
+
    
     
     
